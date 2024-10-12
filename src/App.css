@@ -40,3 +40,8 @@
 .read-the-docs {
   color: #888;
 }
+
+body {
+  overflow: hidden; /* Hides scrollbar */
+  /* overflow: auto; /* Use this if you want to keep the scrolling functionality without showing the scrollbar */
+}

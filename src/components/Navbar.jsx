@@ -1,15 +1,17 @@
+// src/components/Navbar.jsx
 import React from 'react';
-import logo from '../assets/logo.webp'
 
-function Navbar() {
+const Navbar = () => {
   return (
-    <>
-    <div className='w-full h-[50px] bg-black flex flex-row justify-between align-center px-32'>
-      <div className='logo h-10 w-10'> <img src={logo} alt="" /></div>
-      
-    </div>
-    </>
-  )
-}
+    <nav className="bg-black text-white p-6 flex justify-between items-center px-24">
+      <div className="text-4xl font-bold">ChatVARRS</div>
+      <ul className="flex gap-6">
+        <li><a href="#" className= " text-xl hover:text-green-600">Home</a></li>
+        <li><a href="#" className="text-xl hover:text-green-600">Register</a></li>
+        <li><a href="#" className="text-xl hover:text-green-600">Login</a></li>
+      </ul>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;

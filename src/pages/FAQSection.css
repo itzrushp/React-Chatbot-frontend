@@ -1,0 +1,35 @@
+/* Custom marquee animation for line 1 and line 3 */
+@keyframes marquee-slow {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Custom marquee animation for line 2 (reverse direction) */
+@keyframes marquee-reverse-slow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Apply slow animation to the FAQ lines */
+.animate-marquee-slow {
+  animation: marquee-slow 30s linear infinite; /* Adjust duration for slower speed */
+}
+
+/* Apply reverse animation for the second line */
+.animate-marquee-reverse-slow {
+  animation: marquee-reverse-slow 30s linear infinite; /* Match slow speed for reverse direction */
+}
+
+/* Stop animation on hover */
+.animate-marquee-slow:hover,
+.animate-marquee-reverse-slow:hover {
+  animation-play-state: paused; /* Pause animation on hover */
+}
