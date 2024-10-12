@@ -71,14 +71,17 @@ const FAQSection = () => {
     "What career services are available for students?",
   ];
 
+  // Create a function to duplicate the FAQ items
+  const duplicateItems = (items) => [...items, ...items];
+
   return (
     <div className="overflow-hidden relative h-96 flex flex-col justify-center">
       {/* First line of FAQs */}
       <div className="whitespace-nowrap animate-marquee-slow">
-        {faqsLine1.map((faq, index) => (
+        {duplicateItems(faqsLine1).map((faq, index) => (
           <div
             key={index}
-            className="inline-block text-2xl bg-primary text-light px-8 py-8 m-4 mb-0 rounded-md shadow-md hover:bg-secondary cursor-pointer transition-colors"
+            className="inline-block text-2xl bg-primary text-light px-8 py-8 m-2 mb-0 rounded-md shadow-md hover:bg-secondary cursor-pointer transition-colors"
           >
             {faq} &#8594;
           </div>
@@ -87,10 +90,10 @@ const FAQSection = () => {
 
       {/* Second line of FAQs, scrolling in the opposite direction */}
       <div className="whitespace-nowrap animate-marquee-reverse-slow mt-4">
-        {faqsLine2.map((faq, index) => (
+        {duplicateItems(faqsLine2).map((faq, index) => (
           <div
             key={index}
-            className="inline-block text-2xl bg-primary text-light px-8 py-8 m-4 mb-0 rounded-md shadow-md hover:bg-secondary cursor-pointer transition-colors"
+            className="inline-block text-2xl bg-primary text-light px-8 py-8 m-2 mb-0 rounded-md shadow-md hover:bg-secondary cursor-pointer transition-colors"
           >
             {faq} &#8594;
           </div>
@@ -99,10 +102,10 @@ const FAQSection = () => {
 
       {/* Third line of FAQs, scrolling in the same direction as the first but slower */}
       <div className="whitespace-nowrap animate-marquee-slow mt-4">
-        {faqsLine3.map((faq, index) => (
+        {duplicateItems(faqsLine3).map((faq, index) => (
           <div
             key={index}
-            className="inline-block text-2xl bg-primary text-light px-8 py-8 m-4 rounded-md shadow-md hover:bg-secondary cursor-pointer transition-colors"
+            className="inline-block text-2xl bg-primary text-light px-8 py-8 m-2 rounded-md shadow-md hover:bg-secondary cursor-pointer transition-colors"
           >
             {faq} &#8594;
           </div>
