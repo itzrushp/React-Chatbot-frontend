@@ -66,18 +66,18 @@ const ChatEnvironment = () => {
   };
 
   return (
-    <div className="h-screen flex">
+    <div className="h-screen flex bg-[#24252D]">
       {/* FAQ Section */}
-      <div className="w-1/4 bg-[#24252D] p-4 flex flex-col justify-between">
-        <div className="text-white text-2xl mb-6">FAQs</div>
+      <div className="w-1/4 bg-[#24252D] p-10 flex flex-col justify-between">
+        <div className="text-white text-xl mb-6">FAQs</div>
         <FAQs onFAQClick={handleFAQClick} />
-        <button className="mt-8 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">
+        <button className="mt-8 w-3/4 bg-red-500 hover:bg-red-600 text-white py-2 rounded-full">
           Log Out
         </button>
       </div>
 
       {/* Chat Window */}
-      <div className="w-3/4 flex flex-col bg-white p-6">
+      <div className="w-3/4 flex flex-col bg-white p-6 rounded-lg">
         <h2 className="text-2xl font-bold mb-4">CampusCompass</h2>
 
         {/* Chatbox messages */}
@@ -92,8 +92,8 @@ const ChatEnvironment = () => {
               <div
                 className={`p-3 rounded-lg max-w-[70%] break-words ${
                   msg.sender === 'user'
-                    ? 'bg-green-500 text-white'
-                    : 'bg-gray-200 text-gray-800'
+                    ? 'bg-green-500 text-white text-xl'
+                    : 'bg-gray-200 text-gray-800 text-xl'
                 }`}
               >
                 {msg.content}
@@ -109,7 +109,7 @@ const ChatEnvironment = () => {
           <input
             type="text"
             placeholder="Type your message here..."
-            className="flex-1 p-4 text-lg border border-gray-300 rounded-lg focus:outline-none"
+            className="flex-1 p-4 text-lg border border-gray-300 rounded-full focus:outline-none"
             value={inputValue}
             onChange={(e) => setInputValue(e.target.value)}
             onKeyDown={handleKeyDown}

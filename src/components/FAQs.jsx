@@ -14,7 +14,7 @@ const FAQs = ({ onFAQClick }) => {
       {faqList.map((faq, index) => (
         <div
           key={index}
-          className="bg-gray-800 p-4 rounded-lg cursor-pointer  text-white hover:bg-green-600 hover:text-[black] transition duration-200 ease-in-out flex items-center justify-between"
+          className="bg-gray-800 p-4 rounded-lg cursor-pointer text-xl text-white hover:bg-green-600 hover:text-[black] transition duration-200 ease-in-out flex items-center justify-between"
           onClick={() => onFAQClick(faq)}
         >
           {faq.question}
