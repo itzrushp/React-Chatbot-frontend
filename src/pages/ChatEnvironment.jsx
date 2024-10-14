@@ -1,97 +1,124 @@
-import React, { useState } from 'react';
-import FAQs from '../components/FAQs';
+import React, { useState, useEffect, useRef } from 'react';
+import FAQs from '../components/FAQs'; // Assuming FAQs component is in a separate file
 
 const ChatEnvironment = () => {
   const [messages, setMessages] = useState([]);
-  const [input, setInput] = useState("");
+  const [inputValue, setInputValue] = useState('');
+  const chatEndRef = useRef(null);
 
+  // Scroll to the latest message
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  // Function to handle sending messages
   const handleSendMessage = () => {
-    if (input.trim()) {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { text: input, user: "You" },
-      ]);
-      setInput(""); // Clear input
+    if (inputValue.trim()) {
+      setMessages([...messages, { sender: 'user', content: inputValue }]);
 
       // Simulate chatbot response
       setTimeout(() => {
+        const response = getBotResponse(inputValue);
         setMessages((prevMessages) => [
           ...prevMessages,
-          { text: "Chatbot response here...", user: "Chatbot" },
+          { sender: 'bot', content: response }
         ]);
-      }, 1000);
+      }, 500);
+
+      setInputValue('');
     }
   };
 
-  // Handle FAQ click
+  // Function to handle Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
+
+  // Sample bot response logic
+  const getBotResponse = (userInput) => {
+    switch (userInput.toLowerCase()) {
+      case 'how long does the admission process take?':
+        return 'It typically takes around 4-6 weeks for processing...';
+      case 'how do i apply for scholarships?':
+        return 'You can apply for scholarships through our online portal...';
+      case 'what are the admission requirements?':
+        return 'The admission requirements vary depending on the course...';
+      case 'can i transfer credits from another institution?':
+        return 'Yes, credit transfers are available depending on the program...';
+      default:
+        return 'Chatbot response here...';
+    }
+  };
+
+  // Function to handle clicking on an FAQ
   const handleFAQClick = (faq) => {
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      { text: faq.question, user: "You" },
-      { text: faq.answer, user: "Chatbot" },
-    ]);
+    setMessages([...messages, { sender: 'user', content: faq.question }]);
+
+    setTimeout(() => {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { sender: 'bot', content: faq.answer }
+      ]);
+    }, 500);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-800 to-black flex">
-      {/* FAQ Column */}
-      <div className="w-1/3 bg-[#24252D] text-white p-8">
-        <h2 className="text-3xl font-bold mb-4">Frequently Asked Questions</h2>
+    <div className="h-screen flex">
+      {/* FAQ Section */}
+      <div className="w-1/4 bg-[#24252D] p-4 flex flex-col justify-between">
+        <div className="text-white text-2xl mb-6">FAQs</div>
         <FAQs onFAQClick={handleFAQClick} />
-        <button className="bg-red-600 p-2 rounded-md mt-auto mb-0 w-full">Log Out</button>
+        <button className="mt-8 w-full bg-red-500 hover:bg-red-600 text-white py-2 rounded-md">
+          Log Out
+        </button>
       </div>
 
-      {/* Chatbot Interface */}
-      <div className="w-2/3 bg-transparent flex flex-col justify-between p-8 rounded-xl shadow-lg">
-        <h2 className="text-2xl font-bold mb-2">CampusCompass</h2>
-        <div className="flex-grow overflow-y-auto p-4 rounded-lg bg-white">
+      {/* Chat Window */}
+      <div className="w-3/4 flex flex-col bg-white p-6">
+        <h2 className="text-2xl font-bold mb-4">CampusCompass</h2>
+
+        {/* Chatbox messages */}
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`mb-4 ${
-                msg.user === "You" ? "text-right" : "text-left"
-              }`}
+              className={`flex ${
+                msg.sender === 'user' ? 'justify-end' : 'justify-start'
+              } w-full`}
             >
-              {msg.user === "You" ? (
-                <div className="inline-block bg-[#F1F1F1] text-black p-3 rounded-lg max-w-xs">
-                  <span>{msg.text}</span>
-                </div>
-              ) : (
-                <div className="inline-block text-gray-900 p-3 max-w-xs">
-                  <span>{msg.text}</span>
-                </div>
-              )}
+              <div
+                className={`p-3 rounded-lg max-w-[70%] break-words ${
+                  msg.sender === 'user'
+                    ? 'bg-green-500 text-white'
+                    : 'bg-gray-200 text-gray-800'
+                }`}
+              >
+                {msg.content}
+              </div>
             </div>
           ))}
+          {/* Always scroll to this div */}
+          <div ref={chatEndRef} />
         </div>
 
-        {/* Chat Input */}
-        <div className="mt-4 flex items-center">
+        {/* Input and Send Button */}
+        <div className="flex items-center mt-4">
           <input
             type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder="Type a message..."
-            className="bg-gray-200 text-black p-3 rounded-lg flex-grow focus:outline-none"
+            placeholder="Type your message here..."
+            className="flex-1 p-4 text-lg border border-gray-300 rounded-lg focus:outline-none"
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button
             onClick={handleSendMessage}
-            className="bg-[#FF5722] text-white px-4 py-3 ml-4 rounded-full flex items-center"
+            className="bg-blue-500 hover:bg-blue-600 text-white ml-3 px-4 py-2 rounded-full text-lg"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              fill="none"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 12h13M12 5l7 7-7 7"
-              />
-            </svg>
+            Send
           </button>
         </div>
       </div>
