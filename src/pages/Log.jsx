@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   return (
@@ -23,7 +24,6 @@ function Login() {
           <p className="text-gray-400 mb-4">
             Please enter your credentials to log in.
           </p>
-
 
           {/* Form */}
           <form>
@@ -60,9 +60,9 @@ function Login() {
           {/* Register Link */}
           <p className="text-gray-400 text-center mt-4">
             Don’t have an account?{" "}
-            <a href="#" className="text-white underline">
+            <Link to="/register" className="text-white underline">
               Sign up
-            </a>
+            </Link>
           </p>
         </div>
       </div>
