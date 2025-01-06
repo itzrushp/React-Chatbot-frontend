@@ -1,4 +1,4 @@
-# College Enquire Chatbot - Frontend
+# College Enquire Chatbot -Campass Compass Frontend
 
 Welcome to the **College Enquire Chatbot** repository! This project is part of an initiative to build a chatbot system designed to assist users with inquiries related to college facilities, admission processes, courses, and more. This repository contains the **frontend implementation** of the chatbot using **ReactJS**.
 
